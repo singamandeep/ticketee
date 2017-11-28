@@ -12,14 +12,16 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  	
-  	<% flash.each do |key, value| %>
-  		<div><%= value %></div>
-  	<% end %>
 
   </head>
 
   <body>
+    <div>
+      <% flash.each do |key, value| %>
+        <div><%= value %></div>
+      <% end %>
+
+    </div>
 
     <%= yield %>
   </body>
