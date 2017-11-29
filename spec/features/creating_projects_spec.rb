@@ -1,7 +1,11 @@
 require 'rails_helper'
 
 RSpec.feature "User can create new projects" do 
+	let(:user) { FactoryGirl.create(:user, :admin) }
+
 	before do
+		login_as(user)
+
 		visit "/"
 
 		click_link "New Project"
