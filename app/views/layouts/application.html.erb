@@ -13,6 +13,13 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
+    <br><br>
+    <ul>
+      <li class = "<%= "active" if current_page?("/users/sign_up") %>">
+        <%= link_to "Sign up", new_user_registration_path %>
+      </li>
+    </ul>
+
   </head>
 
   <body>
