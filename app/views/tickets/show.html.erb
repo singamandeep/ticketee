@@ -6,4 +6,9 @@
 		<%= simple_format(@ticket.description) %>
 	</p>
 
+	<ul class="actions">
+		<li>
+			<%= link_to "Edit Ticket", [:edit, @project, @ticket]%>
+		</li>
+	</ul>
 </div>
