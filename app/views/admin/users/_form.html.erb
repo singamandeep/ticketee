@@ -1,4 +1,4 @@
-<%= simple_form_for user, :url => admin_users_path, :method => :post  do |f| %>
+<%= simple_form_for([:admin, user]) do |f| %>
 	
 	<%= f.input :email %>
 	
