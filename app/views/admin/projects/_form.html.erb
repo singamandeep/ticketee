@@ -1,0 +1,9 @@
+<%= simple_form_for project, :url => admin_projects_path, :method => :post  do |f| %>
+	
+	<%= f.input :name %>
+	
+	<%= f.input :description %> 
+
+	<%= f.submit %> 
+	
+<% end %>
