@@ -12,7 +12,11 @@
 
 <ul>
 	<% @users.each do |user| %>
-		<li><%= link_to user.email, [:admin, user] %></li>
+		<!-- Since we have not linked any specific attribute 
+			so, here ruby will call to_s method which would return the address of the object is does'nt know what to print as string
+			So, we have overriden the method to_s in user model to tell ruby what to print as a string.
+		-->
+		<li><%= link_to user, [:admin, user] %></li>
 	<% end %>
 
 </ul>
