@@ -18,21 +18,32 @@
       <!-- class = "active" is used to set the link active in navbar 
         i.e to show it or not to show it -->
 
+      <li>
+        <%= link_to "Home", root_path %>
+      </li>
+
+      <% admins_only do %>
+        <li>
+          <%= link_to "Admin", admin_root_path %>
+        </li>
+      <% end %>
+
+      
       <% unless user_signed_in? %>
-      <li class = "<%= "active" if current_page?("/users/sign_up") %>">
-        <%= link_to "Sign up", new_user_registration_path %>
-      </li>
-      <li class = "<%= "active" if current_page?("/users/sign_in") %>">
-        <%= link_to "Sign in", new_user_session_path %>
-      </li>
+        <li class = "<%= "active" if current_page?("/users/sign_up") %>">
+          <%= link_to "Sign up", new_user_registration_path %>
+        </li>
+        <li class = "<%= "active" if current_page?("/users/sign_in") %>">
+          <%= link_to "Sign in", new_user_session_path %>
+        </li>
       <% end %>
 
       <% if user_signed_in? %>
-      <li>
-        Signed in as <%= current_user.email %>  
-      </li><br>
-      <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %>
-      </li>
+        <li>
+          Signed in as <%= current_user.email %>  
+        </li><br>
+        <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+        </li>
       <% end %>
 
     </ul>
