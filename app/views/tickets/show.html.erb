@@ -18,9 +18,11 @@
 	</table>
 
 	<ul class="actions">
-		<li>
+		<% if policy(@ticket).update? %>
+			<li>
 			<%= link_to "Edit Ticket", [:edit, @project, @ticket]%>
-		</li>
+			</li>
+		<% end %>
 		<li>
 			<%= link_to "Delete Ticket", [@project, @ticket], 
 			method: :delete, data: {confirm: "Are you sure you want to delete ticket?"} %>
