@@ -11,7 +11,7 @@ RSpec.feature "User can delete tickets" do
 		# ** we need to assign current user roles
 		# ** and for assigning roles user must be signed in
 		login_as(author)
-		assign_role!(author, :viewer, project)
+		assign_role!(author, :manager, project)
 
 		visit project_ticket_path(project, ticket)
 	end
