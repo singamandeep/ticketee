@@ -14,13 +14,13 @@ require 'rspec/rails'
 # run twice. It is recommended that you do not name files matching this glob to
 # end with _spec.rb. You can configure this pattern with the --pattern
 # option on the command line or in ~/.rspec, .rspec or `.rspec-local`.
-#
+
 # The following line is provided for convenience purposes. It has the downside
 # of increasing the boot-up time by auto-requiring all files in the support
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+ Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
@@ -58,4 +58,7 @@ RSpec.configure do |config|
   # ** Adding warden to use method "login_as" in testing for signout
   config.include Warden::Test::Helpers, type: :feature
   config.after(type: :feature) {Warden.test_reset!}
+
+  # ** Adding pundit helpers for use in the spec process
+  require "pundit/rspec"
 end

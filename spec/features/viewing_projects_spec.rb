@@ -1,17 +1,18 @@
 require "rails_helper"
 
-RSpec.feature "Users can view Projects" do 
-	scenario "with the project details" do
-		# ** project factory is created in the factories .spec/folder	
-		
-		# ** arrange
-		project = FactoryGirl.create(:project, name: "Sublime Text 3")
+RSpec.feature "Users can view Projects" do
+	let(:user) { FactoryGirl.create(:user) }
+	let(:project) { FactoryGirl.create(:project, name: "Sublime Text 3") }
 
-		# ** act
+	before do
+		login_as(user)
+		assign_role!(user, :viewer, project)
+	end
+
+	scenario "with the project details" do
 		visit "/"		
 		click_link "Sublime Text 3"
 		
-		# ** assert
 		expect(page.current_url).to eq project_url(project) 
 	
 	end

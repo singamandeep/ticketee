@@ -6,6 +6,13 @@ RSpec.feature "User can delete tickets" do
 	let(:ticket) { FactoryGirl.create(:ticket, project: project, author: author) }
 
 	before do
+		# ** login was added afterwards to get the test pass in Ch-8
+		# ** since anonymous user can't view a project 
+		# ** we need to assign current user roles
+		# ** and for assigning roles user must be signed in
+		login_as(author)
+		assign_role!(author, :viewer, project)
+
 		visit project_ticket_path(project, ticket)
 	end
 
