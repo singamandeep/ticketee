@@ -6,6 +6,11 @@ class ApplicationController < ActionController::Base
 	# ** its a global rescue_from to rescue from Pundit errors.
 	rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
+	# ** to avoid making mistakes added authorize check on every exisiting and future coming controllers
+	# ** except on devise
+	after_action :verify_authorized, except: [:index], unless: :devise_controller?
+	after_action :verify_policy_scoped, only: [:index], unless: :devise_controller?
+
 private 
 
 	def not_authorized
