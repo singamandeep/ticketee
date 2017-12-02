@@ -1,11 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe ProjectPolicy do
- # subject { described_class }
+#  subject { described_class }
   
   # ** test to - hide links from the index of the ProjectController
   # ** it has been implemented on the scope in ProjectPolicy class.
   context "policy_scope" do
+
+    # ** this subject has similar meaning as in the index of the prroject controller
     subject { Pundit.policy_scope(user, Project) }
 
     let!(:project) { FactoryGirl.create(:project) }
@@ -32,7 +34,8 @@ RSpec.describe ProjectPolicy do
   end
 
   context "permissions" do
-    subject { ProjectPolicy.new(user, project) }
+    subject { ProjectPolicy.new(user, project) } # ** this is the syntax of the Pundit gem when using the 
+    # ** reduced RSpec syntax, see Pundit gem.
 
     let(:user) { FactoryGirl.create(:user) }
     let(:project) { FactoryGirl.create(:project) }
