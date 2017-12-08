@@ -19,3 +19,7 @@
 
 # Ignore Byebug command history file.
 .byebug_history
+
+
+# this is done to ignore the files used in testing to be versonised.
+public/uploads

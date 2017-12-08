@@ -13,6 +13,9 @@ class Admin::UsersController < Admin::ApplicationController
 	def create
 		@user = User.create(user_params)
 
+		# ** managing roles
+		build_roles_for(@user)
+
 		if @user.save
 			flash[:notice] = "User has been created."
 			redirect_to admin_users_path
@@ -42,14 +45,8 @@ class Admin::UsersController < Admin::ApplicationController
 		# ** Roles managing
 		User.transaction do
 			@user.roles.clear
-			role_data = params.fetch(:roles, [])
-			role_data.each do |project_id, role_name|
-				if role_name.present?
-					@user.roles.build(project_id: project_id, role: role_name)
-				end
-			end
+			build_roles_for(@user)
 		end
-			
 
 
 		# ** The main Update action goes here.
@@ -87,6 +84,15 @@ private
 	# ** created set_projects after setting a select box in the view
 	def set_projects
 		@projects = Project.order(:name)
+	end
+
+	def build_roles_for(user)
+		role_data = params.fetch(:roles, [])
+		role_data.each do |project_id, role_name|
+			if role_name.present?
+				user.roles.build(project_id: project_id, role: role_name)
+			end
+		end
 	end
 
 end

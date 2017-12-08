@@ -3,8 +3,20 @@
 
 	<h2><%= @ticket.name %></h2><br>
 	<p>
+		<!-- simple_format is used to keep the description in the same format as it is entered by the user -->
 		<%= simple_format(@ticket.description) %>
 	</p>
+
+	<!-- Attachment of a file using Carrierwave -->
+	<% if @ticket.attachment.present? %>
+		<h4>Attachment</h4>
+		<div class="attachment">
+			<p>
+				<%= link_to File.basename(@ticket.attachment.url), @ticket.attachment.url %>
+				(<%= number_to_human_size(@ticket.attachment.size) %>)
+			</p>
+		</div>
+	<% end %>
 
 	<table id="attributes">
 		<tr>

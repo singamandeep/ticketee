@@ -5,4 +5,6 @@ class Ticket < ApplicationRecord
 	validates :name, :description, presence: true
 	validates :description, length: {minimum: 10}
 
+	# ** Carrierwave - file upload.
+	mount_uploader :attachment, AttachmentUploader
 end
