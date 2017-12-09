@@ -57,18 +57,17 @@ RSpec.feature "User can create new tickets" do
 		end
 	end
 
-	# ** solving the problem - that if the form to create if rendered again 
-	# ** then the file should be retained.
 	scenario "persisting file uploads across form displays" do
 		attach_file "File", "spec/fixtures/speed.txt"
 		click_button "Create Ticket"
 
 		fill_in "Name", with: "Add documentation for blink tag"
-		fill_in "Description", with: "The blink tag has a speed attribute" 
+		fill_in "Description", with: "The blink tag has a speed attribute"
 		click_button "Create Ticket"
 
 		within("#ticket .attachment") do
 			expect(page).to have_content "speed.txt"
 		end
 	end
+
 end
