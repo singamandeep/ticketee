@@ -7,11 +7,15 @@ class TicketsController < ApplicationController
 		@ticket = @project.tickets.build
 		
 		authorize @ticket, :create?
+
+
+		3.times { @ticket.attachments.build }
 	end
 
 	def create 
 		@ticket = @project.tickets.build(ticket_params)
 		@ticket.author = current_user
+	
 
 		authorize @ticket, :create?
 
@@ -20,6 +24,7 @@ class TicketsController < ApplicationController
 			# ** redirects to show fo ticketee.
 			redirect_to [@project, @ticket] 
 		else 
+			#puts @ticket.errors.full_message
 			flash.now[:alert] = "Ticket has not been created."
 			render "new"
 		end
@@ -61,8 +66,9 @@ private
 	end 
 
 	def ticket_params
-		params.require(:ticket).permit(:name, :description, :attachment, :attachment_cache)	 	
-	end 
+    	params.require(:ticket).permit(:name, :description,
+      	attachments_attributes: [:file, :file_cache])
+  	end
 
 	def set_ticket
 		@ticket = Ticket.find(params[:id])
