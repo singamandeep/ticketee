@@ -1,0 +1,3 @@
+<%= fields_for @ticket do |f| %>
+	<%= render partial: "attachments/form", locals: {f: f, index: 0} %>
+<% end %>
