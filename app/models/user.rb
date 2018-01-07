@@ -36,5 +36,9 @@ class User < ApplicationRecord
         # ** project_id hence no need to get further in finding the role name
         roles.find_by(project_id: project).try(:name)
     end
+
+    def generate_api_key
+        self.update_column(:api_key, SecureRandom.hex(16))
+    end
 end
 
