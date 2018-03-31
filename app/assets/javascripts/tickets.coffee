@@ -3,3 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $ ->
+  $("#add_file").on "ajax:success", (event, data) ->
+  	$("#attachments").append data
+  	$(this).data "params", { index: $("#attachments div.file").length }
+

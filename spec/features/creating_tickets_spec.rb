@@ -44,7 +44,7 @@ RSpec.feature "User can create new tickets" do
 		expect(page).to have_content "Description is too short"
 	end
 
-	scenario "with multiple attachments", js: true do
+	scenario "with multiple attachments" do
 		fill_in "Name", with: "Add documentation for blink tag"
 		fill_in "Description", with: "The blink tag has a speed attribute"
 

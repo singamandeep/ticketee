@@ -7,15 +7,16 @@
 		<div id="attachments">
 			<h3>Attachments</h3>
 			<!-- locals is used to set the local variables in the partial-->
-				<%= render partial: "attachments/form", 
-				locals: {f: f, index: 0} %>
+				<%= render partial: "attachments/form", locals: {f: f, index: 0} %>
 		</div>
 
 		<p>
-			<%= link_to "Add another file", new_attachment_path, remote: true, id: "add_file" %>
+			<!-- The params of this link are also updated asyncronously, to the number of div elements -->
+			<%= link_to "Add another file", new_attachment_path, remote: true, id: "add_file", data: {params: {index: ticket.attachments.size} }, class: "btn btn-primary" %>
 		</p>
 
 	</div>
+	<hr />
 	<div class="form-actions">
 		<%= f.button :submit, class: "btn btn-primary" %>
 	</div>

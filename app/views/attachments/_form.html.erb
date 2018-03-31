@@ -1,5 +1,5 @@
 <!-- index variable is declared in the locals hash which is being passed at the time of rendering -->
-<%= f.simple_fields_for :attachments do |ff| %>
+<%= f.simple_fields_for :attachments, child_index: index do |ff| %>
 	<%= ff.input :file, as: :file, label: "File ##{index += 1} " %>
 	<%= ff.input :file_cache, as: :hidden %>
 <% end %>
