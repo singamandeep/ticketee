@@ -29,6 +29,8 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'loofah', '2.2.2'
+
 
 # ** newly added.
 gem 'simple_form'
