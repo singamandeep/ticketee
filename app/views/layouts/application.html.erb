@@ -10,54 +10,43 @@
     </title>
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all' %>
-    <%= javascript_include_tag 'application' %>
+<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <br><br>
-    <ul>
-      <!-- class = "active" is used to set the link active in navbar 
-        i.e to show it or not to show it -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
-      <li>
-        <%= link_to "Home", root_path %>
-      </li>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
-      <% admins_only do %>
-        <li>
-          <%= link_to "Admin", admin_root_path %>
-        </li>
-      <% end %>
-
-      
-      <% unless user_signed_in? %>
-        <li class = "<%= "active" if current_page?("/users/sign_up") %>">
-          <%= link_to "Sign up", new_user_registration_path %>
-        </li>
-        <li class = "<%= "active" if current_page?("/users/sign_in") %>">
-          <%= link_to "Sign in", new_user_session_path %>
-        </li>
-      <% end %>
-
-      <% if user_signed_in? %>
-        <li>
-          Signed in as <%= current_user.email %>  
-        </li><br>
-        <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %>
-        </li>
-      <% end %>
-
-    </ul>
-
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <div>
-      <% flash.each do |key, value| %>
-        <div><%= value %></div>
+
+    <%= render 'layouts/header' %>
+
+    <% flash.each do |key, message| %>
+      <% if key == "alert" %>
+        <% class_name = "danger" %>
+      <% elsif key == "warning" %>
+        <% class_name = "warning" %>
+      <% else %>
+        <% class_name = "success" %>
       <% end %>
 
-    </div>
-
+      <div class="alert alert-<%= class_name %>">
+        <%= message %>    
+      </div>
+    <% end %>
+    
     <%= yield %>
+
+    <%= render 'layouts/footer' %>
   </body>
+
+  <!-- All scripts below -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 </html>

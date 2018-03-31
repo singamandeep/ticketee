@@ -1,21 +1,23 @@
-<h1><%= @user %><h1>
+<div class="container", style="margin-top: 50px;">
+	<div class="card">
+		<div class="card-header"><h3><%= @user %><h3></div>
+		<div class="card-body">
+			<% if @user.roles.any? %>
+				<h4>Roles</h4>
+				<ul>
+					<% @user.roles.each do |role| %>
+						<li><%= role.project.name %>: <%= role.role.titleize %></li>
+					<% end %>
+				</ul>
+			<% else %>
+				<p>This user has no roles.</p>
+			<% end %>		
+		</div>
+		<div class="card-footer">
+			<%= link_to "Edit User", [:edit, :admin, @user], class: "btn btn-primary", style: "margin-right: 5px;" %>
+			<%= link_to "Archive User", [:archive, :admin, @user], method: :patch, data: {confirm: "Are you sure you want to archive this user?"}, class: "btn btn-primary" %>
+		</div>
+	</div>
+</div>
 
-<ul>
-	<li>
-		<%= link_to "Edit User", [:edit, :admin, @user] %>
-	</li>
-
-	<li>
-		<%= link_to "Archive User", [:archive, :admin, @user], method: :patch, data: {confirm: "Are you sure you want to archive this user?"} %>
-	</li>
-</ul>
-
-<h2>Roles</h2>
-
-<% if @user.roles.any? %>
-	<% @user.roles.each do |role| %>
-		<li><%= role.project.name %>: <%= role.role.titleize %></li>
-	<% end %>
-<% else %>
-	<p>This user has no roles.</p>
-<% end %>
+	

@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light" >
+	<a class="navbar-brand" href="/">Ticketee</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mr-auto">
+			<% admins_only do %>
+				<li class="nav-item">
+					<%= link_to "Admin", admin_root_path, class: "nav-link" %>
+				</li>
+				<li class="nav-item">
+					<%= link_to 'New Project', new_admin_project_path, class: "nav-link" %>
+				</li>
+			<% end %>
+			<% if user_signed_in? %>
+				<li class="nav-item">
+					<%= link_to "Edit Profile", edit_user_registration_path , class: "nav-link" %>
+				</li>
+				<form class="form-inline my-2 my-lg-0">
+					<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+					<button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+				</form> 
+			<% end %>
+		</ul>
+		<% unless user_signed_in? %>
+			<div class = "<%= "active" if current_page?("/users/sign_up") %> nav-item" style="margin-right: 5px;">
+				<%= link_to "Sign up", new_user_registration_path, class: "btn btn-primary" %>
+			</div>
+			<div class = "<%= "active" if current_page?("/users/sign_in") %> nav-item">
+				<%= link_to "Sign in", new_user_session_path, class: "btn btn-primary" %>
+			</div>
+		<% end %>
+		<% if user_signed_in? %>
+			<div class="navbar-text" style="margin-right: 5px;">
+				Signed in as <%= current_user.email %>  
+			</div>
+			<div class="nav-item" style="text-decoration: none;">
+				<%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "btn btn-primary" %>
+			</div>
+		<% end %>
+	</div>
+</nav>
+

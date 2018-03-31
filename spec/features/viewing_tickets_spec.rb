@@ -30,7 +30,7 @@ RSpec.feature "User can view tickets" do
 		# ** this means on the current loaded page find a div with 
 		# ** id = "ticket" and in that div find a tag h2 within 
 		# ** which the content should be present.
-		within('#ticket h2') do
+		within('#ticket') do
 			expect(page).to have_content "Make it shiny!"
 		end
 		expect(page).to have_content "Gradients! Starbursts! Oh my!"

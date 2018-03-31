@@ -1,19 +1,22 @@
-<%= simple_form_for([:admin, user]) do |f| %>
-	
+<%= simple_form_for [:admin, user] do |f| %>
+
+<div class="form-inputs">
 	<%= f.input :email %>
 	
 	<%= f.input :password %> 
 
 	<%= f.input :admin, label: "Is an admin?" %>
 
-	<br>
-	<h2>Roles</h2> <br>
+		
+	<hr />
+
+	<h2>Roles</h2> 
 
 	<!--Here is a select box for all the roles.-->
 	<table>
 		<% projects.each do |project| %>
 			<tr>
-			<th><%= label_tag dom_id(project), project.name %></th>
+			<td><%= label_tag dom_id(project), project.name %></td>
 			<td><%= select_tag dom_id(project), options_for_select(roles, user.role_on(project)), name: "roles[#{project.id}]", include_blank: true %>
 				
 			</td>
@@ -21,6 +24,12 @@
 		<% end %>
 	</table>
 
-	<%= f.submit %> 
-	
-<% end %>
+
+</div>
+<hr />
+<div class="form-actions">
+	<%= f.button :submit, class: "btn btn-primary" %>
+</div>
+<% end %> <br />
+
+

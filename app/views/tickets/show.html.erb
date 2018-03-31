@@ -1,51 +1,56 @@
-<div id="ticket">
-	<h1><%= @project.name %></h1>
+<div class="container" style="margin-top: 50px">
 
-	<h2><%= @ticket.name %></h2><br>
-	<p>
-		<!-- simple_format is used to keep the description in the same format as it is entered by the user -->
-		<%= simple_format(@ticket.description) %>
-	</p>
+	<div id="ticket" class="card">
+		<div class="card-header"><h2><i class="fa fa-paper-plane" aria-hidden="true"></i> <%= @project.name %></h2></div>
 
-	<!-- Attachment of a file using Carrierwave -->
-	<% if @ticket.attachments.any? %>
-		<h4>Attachments</h4>
-		<div class="attachments">
-			<%= @ticket.attachments.each do |attachment| %>
-			<p>
-				<%= link_to File.basename(attachment.file.url), attachment_path(attachment) %>
-				(<%= number_to_human_size(attachment.file.size) %>)
-			</p>
-			<% end %>
+		<div class="card-body">
+			<div class="card">
+				<div class="card-header"><h3><i class="fa fa-ticket" aria-hidden="true"></i> <%= @ticket.name %></h3></div>
+				<div class="card-body">
+					<p>
+						<!-- simple_format is used to keep the description in the same format as it is entered by the user -->
+						<%= simple_format(@ticket.description) %>
+					</p>
+
+					<table id="attributes" class="table">
+						<tr>
+							<th>Author:</th>
+							<td><%= @ticket.author.email %></td>
+						</tr>
+						<tr>
+							<th>Created:</th>
+							<td><% time_ago_in_words(@ticket.created_at) %> ago</td>
+						</tr>
+					</table>
+
+					<!-- Attachment of a file using Carrierwave -->
+					<% if @ticket.attachments.any? %>
+						<hr />
+						<h4>Attachments</h4>
+						<div class="attachments">
+							<% @ticket.attachments.each do |attachment| %>
+								<p>
+									<%= link_to File.basename(attachment.file.url), attachment_path(attachment) %>
+									(<%= number_to_human_size(attachment.file.size) %>)
+								</p>
+							<% end %>
+						</div>
+					<% end %>
+
+
+					<% if policy(@ticket).update? %>
+						<hr />
+							<%= link_to "Edit Ticket", [:edit, @project, @ticket], class: "btn btn-primary"%>
+					<% end %>
+
+					<% if policy(@ticket).destroy? %>
+
+							<%= link_to "Delete Ticket", [@project, @ticket], 
+							method: :delete, data: {confirm: "Are you sure you want to delete ticket?"}, class: "btn btn-primary" %>
+					<% end %>
+				</div>
+			</div>
 		</div>
-	<% end %>
 
-	<table id="attributes">
-		<tr>
-			<th>Author:</th>
-			<td><%= @ticket.author.email %></td>
-		</tr>
-		<tr>
-			<th>Created:</th>
-			<td><% time_ago_in_words(@ticket.created_at) %> ago</td>
-		</tr>
-	</table>
-
-	<ul class="actions">
-		<% if policy(@ticket).update? %>
-			<li>
-			<%= link_to "Edit Ticket", [:edit, @project, @ticket]%>
-			</li>
-		<% end %>
-
-		<% if policy(@ticket).destroy? %>
-		<li>
-			<%= link_to "Delete Ticket", [@project, @ticket], 
-			method: :delete, data: {confirm: "Are you sure you want to delete ticket?"} %>
-		</li>
-		<% end %>
-	</ul>
-
-
-	
+	</div>
 </div>

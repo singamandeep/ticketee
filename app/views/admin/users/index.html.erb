@@ -1,22 +1,36 @@
-<h1>Users</h1>
 
-<ul>
-	<li>
-		<%= link_to "New User", new_admin_user_path %>
-	</li>
+<div class="container">
+	<div class="row" style="margin-top: 50px; margin-bottom: 100px">
+		<div class="col card mr-4">
 
-
-</ul>
-
-<br><br>
-
-<ul>
-	<% @users.each do |user| %>
-		<!-- Since we have not linked any specific attribute 
-			so, here ruby will call to_s method which would return the address of the object is does'nt know what to print as string
-			So, we have overriden the method to_s in user model to tell ruby what to print as a string.
-		-->
-		<li><%= link_to user, [:admin, user] %></li>
-	<% end %>
-
-</ul>
+			<div class="row card-header"><h2>Registered Users</h2></div><br>
+			<div class="card-body">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">User</th>
+						</tr>
+					</thead>
+					<tbody>
+						
+						<% @users.each_with_index do |user, ind| %>
+							<tr>
+								<th scope="row"><%= ind+1 %></th>
+								<td><%= link_to user, [:admin, user] %></td>
+							</tr>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="col-4 card">
+			<div class="row card-header"><h4>Configurations</h4></div><br>
+			<div class="card-body">
+				<ul class="list-group">
+					<li class="list-group-item list-group-item-light"><%= link_to "New User", new_admin_user_path %></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
