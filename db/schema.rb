@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171209065152) do
+ActiveRecord::Schema.define(version: 20180331132559) do
 
   create_table "attachments", force: :cascade do |t|
     t.string   "file"
@@ -18,6 +18,16 @@ ActiveRecord::Schema.define(version: 20171209065152) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["ticket_id"], name: "index_attachments_on_ticket_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text     "text"
+    t.integer  "ticket_id"
+    t.integer  "author_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_comments_on_author_id"
+    t.index ["ticket_id"], name: "index_comments_on_ticket_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -63,6 +73,8 @@ ActiveRecord::Schema.define(version: 20171209065152) do
     t.datetime "updated_at",                             null: false
     t.boolean  "admin",                  default: false
     t.datetime "archived_at"
+    t.string   "api_key"
+    t.index ["api_key"], name: "index_users_on_api_key"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

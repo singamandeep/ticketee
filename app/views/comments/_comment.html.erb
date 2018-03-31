@@ -1,0 +1,9 @@
+<div class="card" style="margin-bottom: 10px">
+	<div class="card-header">
+		<p class="font-weight-bold"><i class="fa fa-comment" aria-hidden="true"></i> <cite><%= comment.author %></cite> | <i class="fa fa-clock-o" aria-hidden="true"></i> <%= time_ago_in_words(comment.created_at) %> ago 
+		</p>
+	</div>
+	<div class="card-body">
+		<%= comment.text %>
+	</div>
+</div>
