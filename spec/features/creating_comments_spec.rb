@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.feature "Users can comment on tickets" do
 	let(:user) { FactoryGirl.create(:user) }
 	let(:project) {FactoryGirl.create(:project) }
+	let!(:state) { FactoryGirl.create(:state, name: "New", default: true) }
 	let(:ticket) { FactoryGirl.create(:ticket, project: project, author: user) }
 
 	before do
@@ -40,7 +41,7 @@ RSpec.feature "Users can comment on tickets" do
 			expect(page).to have_content "Open"
 		end
 		within("#comments") do
-			expect(page).to have_content "state changed to Open"
+			expect(page).to have_content "state changed from New to Open"
 		end
 	end
 
@@ -49,5 +50,19 @@ RSpec.feature "Users can comment on tickets" do
 		visit project_ticket_path(project, ticket)
 
 		expect(page).not_to have_select "State"
+	end
+
+	scenario "when adding a new tag to a ticket" do
+		visit project_ticket_path(project, ticket)
+		expect(page).not_to have_content "bug"
+
+		fill_in "Text", with: "Adding the bug tag"
+		fill_in "Tags", with: "bug"
+		click_button "Create Comment"
+
+		expect(page).to have_content "Comment has been created."
+		within("#ticket #tags") do
+			expect(page).to have_content "bug"
+		end
 	end
 end

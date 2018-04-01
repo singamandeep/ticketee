@@ -4,6 +4,7 @@ class Ticket < ApplicationRecord
 	def tag_names=(names)
 		@tag_names = names
 		names.split.each do |name|
+			# this creates all associations by itself
 			self.tags << Tag.find_or_initialize_by(name: name)
 		end
 	end
