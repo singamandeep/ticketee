@@ -9,6 +9,7 @@
 						<tr>
 							<th scope="col">#</th>
 							<th scope="col">State</th>
+							<th scope="col">Specification</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -17,6 +18,13 @@
 							<tr>
 								<th scope="row"><%= ind+1 %></th>
 								<td><%= render "states/state", state: state %></td>
+								<td>
+									<% if state.default? %>
+										<strong>Default</strong>	
+									<% else %>
+										<%= link_to "Make Default", make_default_admin_state_path(state) %>
+									<% end %>
+								</td>
 							</tr>
 						<% end %>
 					</tbody>
