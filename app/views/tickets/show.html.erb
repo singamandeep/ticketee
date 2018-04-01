@@ -27,6 +27,12 @@
 								<td><%= render @ticket.state %></td>
 							<% end %>
 						</tr>
+						<% if @ticket.tags.any? %>
+							<tr id="tags">
+								<th>Tags:</th>
+								<td><%= render @ticket.tags %></td>								
+							</tr>
+						<% end %>
 					</table>
 
 					<!-- Attachment of a file using Carrierwave -->
