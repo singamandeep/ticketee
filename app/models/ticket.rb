@@ -11,4 +11,13 @@ class Ticket < ApplicationRecord
 	validates :name, :description, presence: true
 	validates :description, length: {minimum: 10}
 
+	# all callbacks below me 
+	before_create :assign_default_state
+
+	private
+
+	def assign_default_state
+		self.state ||= State.default
+	end
+
 end

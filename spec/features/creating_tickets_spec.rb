@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.feature "User can create new tickets" do
 	let(:user) { FactoryGirl.create(:user) } # ** Ch-6
+	let!(:state) { FactoryGirl.create(:state, name: "New", default: true) }
 
 	before do
 		login_as(user) # ** ch-6
@@ -18,6 +19,7 @@ RSpec.feature "User can create new tickets" do
 		click_button "Create Ticket"
 
 		expect(page).to have_content "Ticket has been created."
+		expect(page).to have_content "State: New"
 
 		# ** done after associations - Ch-6
 		within("#ticket") do
