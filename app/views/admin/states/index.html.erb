@@ -1,0 +1,35 @@
+<div class="container">
+	<div class="row" style="margin-top: 50px; margin-bottom: 100px">
+		<div class="col card mr-4">
+
+			<div class="row card-header"><h2>Exisiting States</h2></div><br>
+			<div class="card-body">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">State</th>
+						</tr>
+					</thead>
+					<tbody>
+						
+						<% @states.each_with_index do |state, ind| %>
+							<tr>
+								<th scope="row"><%= ind+1 %></th>
+								<td><%= render "states/state", state: state %></td>
+							</tr>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="col-4 card">
+			<div class="row card-header"><h4>Configurations</h4></div><br>
+			<div class="card-body">
+				<ul class="list-group">
+					<li class="list-group-item list-group-item-light"><%= link_to "New State", new_admin_state_path %></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
