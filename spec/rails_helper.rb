@@ -61,4 +61,7 @@ RSpec.configure do |config|
 
   # ** Adding pundit helpers for use in the spec process
   require "pundit/rspec"
+
+  # ** Adding Devise helpers to use sign_in for the controllers spec.
+  config.include Devise::TestHelpers, type: :controller
 end
