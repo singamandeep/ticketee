@@ -2,6 +2,8 @@
 	<%= f.input :text %>
 	<!-- the following line states the cleverness of simple_form_for -->
 	<!-- It will load all the entries of the state table in the form of a select box -->
-	<%= f.association :state %>
+	<% if policy(ticket).change_state? %>
+		<%= f.association :state %>
+	<% end %>
 	<%= f.button :submit, class: "btn btn-primary" %>
 <% end %>
