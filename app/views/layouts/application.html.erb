@@ -19,6 +19,18 @@
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
+
+    <!-- All styles below me -->
+    <style type="text/css">
+      <% State.all.each do |state| %>
+        .state-<%= state.name.parameterize %> {
+          background-color: <%= state.color %>;
+          color: white;
+          font-size: 14px;
+        }
+      <% end %>
+    </style>
+
   </head>
 
   <body>

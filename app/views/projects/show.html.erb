@@ -17,6 +17,7 @@
 									<tr>
 										<th scope="col">#</th>
 										<th scope="col">Ticket Name</th>
+										<th scope="col">Ticket State</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -24,6 +25,7 @@
 										<tr>
 											<th scope="row"><%= ind+1 %></th>
 											<td><%= link_to ticket.name, [@project, ticket]%></td>
+											<td><%= render ticket.state if ticket.state %></td>
 										</tr>
 									<% end %>
 								</tbody>
