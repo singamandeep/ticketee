@@ -1,4 +1,6 @@
 <div class="tag badge badge-primary" style="margin-right: 5px;">
-	<%= link_to "<span></span>".html_safe, "#", class: "remove", title: "remove" %>
+	<% if policy(ticket).tag? %>
+		<%= link_to "<span><i class='fa fa-times-circle' aria-hidden='true'></i></span>".html_safe, remove_ticket_tag_path(ticket, tag), method: :delete, remote: true, class: "remove", title: "remove", style: "text-decoration: none; color: white" %>
+	<% end %>
 	<%= tag.name %>
 </div>
