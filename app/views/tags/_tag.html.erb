@@ -2,5 +2,5 @@
 	<% if policy(ticket).tag? %>
 		<%= link_to "<span><i class='fa fa-times-circle' aria-hidden='true'></i></span>".html_safe, remove_ticket_tag_path(ticket, tag), method: :delete, remote: true, class: "remove", title: "remove", style: "text-decoration: none; color: white" %>
 	<% end %>
-	<%= tag.name %>
+	<%= link_to tag.name, search_project_tickets_path(ticket.project, search: "#{tag.name}"), style: "text-decoration: none; color: white" %>
 </div>
