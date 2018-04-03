@@ -4,50 +4,62 @@
 		<div class="col card">
 			<div class="row card-header"><h2><i class="fa fa-paper-plane" aria-hidden="true"></i> <%= @project.name %></h2></div>
 			<div class="card-body">
-
 				<h5><%= @project.description %></h5>
-
-				<% if @project.tickets.count != 0 %>
 					<hr />
 					<div class="card">
-						<div class="card-header"><h4><i class="fa fa-ticket" aria-hidden="true"></i> Tickets on <%= @project.name %></h4></div>
-						<div class="card-body">
-							<table class="table">
-								<thead>
-									<tr>
-										<th scope="col">#</th>
-										<th scope="col">Ticket Name</th>
-										<th scope="col">Ticket State</th>
-									</tr>
-								</thead>
-								<tbody>
-									<% @project.tickets.each_with_index do |ticket, ind| %>
-										<tr>
-											<th scope="row"><%= ind+1 %></th>
-											<td><%= link_to ticket.name, [@project, ticket]%></td>
-											<td><%= render ticket.state if ticket.state %></td>
-										</tr>
+						<div class="card-header">
+							<div>
+								<div class="float-left"><h4><i class="fa fa-ticket" aria-hidden="true"></i> Tickets</h4></div>
+								<div class="float-right row">
+									<%= form_tag search_project_tickets_path(@project), method: :get, class: "form-inline" do %>
+										<%= label_tag "search", "Search", class: "sr-only" %>
+										<%= text_field_tag "search", params[:search], placeholder: "Tag or State Search...", class: "form-control", style: "margin-right: 3px;" %>
+										<%= submit_tag "Search", class: "btn btn-primary" %>
 									<% end %>
-								</tbody>
-							</table>
+									<% if policy(Ticket.new(project: @project)).create? %>
+										<%= link_to "New Ticket", new_project_ticket_path(@project), class: "btn btn-primary", style: "margin-left: 8px;" %>
+									<% end %>
+								</div>
+							</div>
+						</div>
+						
+						<div class="card-body">
+							<% if @project.tickets.count != 0 %>
+								<table class="table" id="tickets">
+									<thead>
+										<tr>
+											<th scope="col">#</th>
+											<th scope="col">Ticket Name</th>
+											<th scope="col">Ticket State</th>
+										</tr>
+									</thead>
+									<tbody>
+										<% @tickets.each_with_index do |ticket, ind| %>
+											<tr>
+												<th scope="row"><%= ind+1 %></th>
+												<td><%= link_to ticket.name, [@project, ticket]%></td>
+												<td><%= render ticket.state if ticket.state %></td>
+											</tr>
+										<% end %>
+									</tbody>
+								</table>
+							<% else %>
+								There are no tickets of this project.
+							<% end %>
 						</div>
 					</div>
-				<% end %>
 			</div>
-			<div class="card-footer row">
-				<% if policy(@project).update? %>
-					<%= link_to "Edit Project", edit_project_path(@project), class: "btn btn-primary" %>
-				<% end %>
+			<% if policy(@project).update? or admins_only %>
+				<div class="card-footer row">
+					<% if policy(@project).update? %>
+						<%= link_to "Edit Project", edit_project_path(@project), class: "btn btn-primary" %>
+					<% end %>
 
-				<% admins_only do %>
-					<%= link_to "Delete Project", admin_project_path(@project), method: :delete, data: {confirm: "Are you sure you want to delete this project?"}, class: "btn btn-primary", style: "margin-left: 3px;" %>
-				<% end %>
-
-
-				<% if policy(Ticket.new(project: @project)).create? %>
-					<%= link_to "New Ticket", new_project_ticket_path(@project), class: "btn btn-primary", style: "margin-left: 3px;" %>
-				<% end %>
-			</div>
+					<% admins_only do %>
+						<%= link_to "Delete Project", admin_project_path(@project), method: :delete, data: {confirm: "Are you sure you want to delete this project?"}, class: "btn btn-primary", style: "margin-left: 3px;" %>
+					<% end %>
+				</div>
+			<% end %>
 		</div>
 	</div>
 </div>

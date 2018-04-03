@@ -1,4 +1,6 @@
 class Ticket < ApplicationRecord
+	include SearchCop
+
 	attr_accessor :tag_names
 
 	def tag_names=(names)
@@ -31,4 +33,18 @@ class Ticket < ApplicationRecord
 		self.state ||= State.default
 	end
 
+	# searching
+
+	search_scope :search do
+	  attributes tags: "tags.name"
+	  attributes state: "state.name"
+	end
+
+	def self.search_query(query)
+  		if query.present?
+			search(query)
+		else
+			scope
+		end
+  	end
 end

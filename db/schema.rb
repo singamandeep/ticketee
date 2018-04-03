@@ -12,76 +12,76 @@
 
 ActiveRecord::Schema.define(version: 20180401155709) do
 
-  create_table "attachments", force: :cascade do |t|
+  create_table "attachments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "file"
     t.integer  "ticket_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["ticket_id"], name: "index_attachments_on_ticket_id"
+    t.index ["ticket_id"], name: "index_attachments_on_ticket_id", using: :btree
   end
 
-  create_table "comments", force: :cascade do |t|
-    t.text     "text"
+  create_table "comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.text     "text",              limit: 65535
     t.integer  "ticket_id"
     t.integer  "author_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.integer  "state_id"
     t.integer  "previous_state_id"
-    t.index ["author_id"], name: "index_comments_on_author_id"
-    t.index ["previous_state_id"], name: "index_comments_on_previous_state_id"
-    t.index ["state_id"], name: "index_comments_on_state_id"
-    t.index ["ticket_id"], name: "index_comments_on_ticket_id"
+    t.index ["author_id"], name: "index_comments_on_author_id", using: :btree
+    t.index ["previous_state_id"], name: "index_comments_on_previous_state_id", using: :btree
+    t.index ["state_id"], name: "index_comments_on_state_id", using: :btree
+    t.index ["ticket_id"], name: "index_comments_on_ticket_id", using: :btree
   end
 
-  create_table "projects", force: :cascade do |t|
+  create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
-    t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.text     "description", limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
-  create_table "roles", force: :cascade do |t|
+  create_table "roles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id"
     t.string   "role"
     t.integer  "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["project_id"], name: "index_roles_on_project_id"
-    t.index ["user_id"], name: "index_roles_on_user_id"
+    t.index ["project_id"], name: "index_roles_on_project_id", using: :btree
+    t.index ["user_id"], name: "index_roles_on_user_id", using: :btree
   end
 
-  create_table "states", force: :cascade do |t|
+  create_table "states", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string  "name"
     t.string  "color"
     t.boolean "default", default: false
   end
 
-  create_table "tags", force: :cascade do |t|
+  create_table "tags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
   end
 
-  create_table "tags_tickets", id: false, force: :cascade do |t|
+  create_table "tags_tickets", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "tag_id",    null: false
     t.integer "ticket_id", null: false
-    t.index ["tag_id", "ticket_id"], name: "index_tags_tickets_on_tag_id_and_ticket_id"
-    t.index ["ticket_id", "tag_id"], name: "index_tags_tickets_on_ticket_id_and_tag_id"
+    t.index ["tag_id", "ticket_id"], name: "index_tags_tickets_on_tag_id_and_ticket_id", using: :btree
+    t.index ["ticket_id", "tag_id"], name: "index_tags_tickets_on_ticket_id_and_tag_id", using: :btree
   end
 
-  create_table "tickets", force: :cascade do |t|
+  create_table "tickets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
-    t.text     "description"
+    t.text     "description", limit: 65535
     t.integer  "project_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.integer  "author_id"
     t.integer  "state_id"
-    t.index ["author_id"], name: "index_tickets_on_author_id"
-    t.index ["project_id"], name: "index_tickets_on_project_id"
-    t.index ["state_id"], name: "index_tickets_on_state_id"
+    t.index ["author_id"], name: "index_tickets_on_author_id", using: :btree
+    t.index ["project_id"], name: "index_tickets_on_project_id", using: :btree
+    t.index ["state_id"], name: "index_tickets_on_state_id", using: :btree
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "email",                  default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
@@ -96,10 +96,17 @@ ActiveRecord::Schema.define(version: 20180401155709) do
     t.datetime "updated_at",                             null: false
     t.boolean  "admin",                  default: false
     t.datetime "archived_at"
-    t.string   "api_key"
-    t.index ["api_key"], name: "index_users_on_api_key"
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "comments", "states"
+  add_foreign_key "comments", "states", column: "previous_state_id"
+  add_foreign_key "comments", "tickets"
+  add_foreign_key "comments", "users", column: "author_id"
+  add_foreign_key "roles", "projects"
+  add_foreign_key "roles", "users"
+  add_foreign_key "tickets", "projects"
+  add_foreign_key "tickets", "states"
+  add_foreign_key "tickets", "users", column: "author_id"
 end

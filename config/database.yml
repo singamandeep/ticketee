@@ -5,21 +5,29 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: sqlite3
+  adapter: mysql2
   pool: 5
   timeout: 5000
+  encoding: utf8
+  host: localhost
 
 development:
   <<: *default
-  database: db/development.sqlite3
+  database: db/ticketee_development
+  username: "root"
+  password: "becomingbetterbypassingday"
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: db/test.sqlite3
+  database: db/ticketee_test
+  username: "root"
+  password: "becomingbetterbypassingday"
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  database: ticketee_production
+  username: <%= ENV['CODESNIPPETS_DATABASE_USER'] %>
+  password: <%= ENV['CODESNIPPETS_DATABASE_PASSWORD'] %>
