@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180401155709) do
+ActiveRecord::Schema.define(version: 20180403165046) do
 
   create_table "attachments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "file"
@@ -66,6 +66,13 @@ ActiveRecord::Schema.define(version: 20180401155709) do
     t.integer "ticket_id", null: false
     t.index ["tag_id", "ticket_id"], name: "index_tags_tickets_on_tag_id_and_ticket_id", using: :btree
     t.index ["ticket_id", "tag_id"], name: "index_tags_tickets_on_ticket_id_and_tag_id", using: :btree
+  end
+
+  create_table "ticket_watchers", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "ticket_id", null: false
+    t.integer "user_id",   null: false
+    t.index ["ticket_id", "user_id"], name: "index_ticket_watchers_on_ticket_id_and_user_id", using: :btree
+    t.index ["user_id", "ticket_id"], name: "index_ticket_watchers_on_user_id_and_ticket_id", using: :btree
   end
 
   create_table "tickets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

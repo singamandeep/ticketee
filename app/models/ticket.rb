@@ -19,6 +19,7 @@ class Ticket < ApplicationRecord
 	has_many :comments, dependent: :destroy
 	belongs_to :state, optional: true
 	has_and_belongs_to_many :tags, uniq: true
+	has_and_belongs_to_many :watchers, join_table: "ticket_watchers", class_name: "User", uniq: true
 
 	# all validations below
 	validates :name, :description, presence: true
@@ -26,6 +27,7 @@ class Ticket < ApplicationRecord
 
 	# all callbacks below me 
 	before_create :assign_default_state
+	after_create :author_watches_me
 
 	private
 
@@ -46,5 +48,11 @@ class Ticket < ApplicationRecord
 		else
 			scope
 		end
+  	end
+
+  	def author_watches_me
+  		if self.author.present? and self.watchers.include?(self.author) == false
+  			self.watchers << self.author
+  		end
   	end
 end
