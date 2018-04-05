@@ -17,6 +17,7 @@ class Comment < ApplicationRecord
   after_create :set_ticket_state
   before_create :set_previous_state
   after_create :associate_tags_with_tickets
+  after_create :author_watches_ticket
 
 private 
 
@@ -39,6 +40,12 @@ private
       tag_names.split.each do |name|
         self.ticket.tags << Tag.find_or_create_by(name: name)
       end
+    end
+  end
+
+  def author_watches_ticket
+    if self.author.present? and self.ticket.watchers.include?(self.author) == false
+        self.ticket.watchers << self.author
     end
   end
 

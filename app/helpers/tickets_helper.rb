@@ -10,4 +10,9 @@ module TicketsHelper
 		end
 	end
 
+	def toogle_watching_button(ticket)
+		text = (ticket.watchers.include?(current_user)) ? "Unwatch" : "Watch"
+		# we used post method since we are going to create a new watcher
+		link_to text, watch_project_ticket_path(ticket.project, ticket), class: text.parameterize, method: :post
+	end
 end
