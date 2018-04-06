@@ -9,13 +9,13 @@ default: &default
   pool: 5
   timeout: 5000
   encoding: utf8
-  host: localhost
 
 development:
   <<: *default
   database: db/ticketee_development
   username: "ticketee_user"
   password: "ticketee"
+  host: localhost
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -25,6 +25,7 @@ test:
   database: db/ticketee_test
   username: "ticketee_user"
   password: "ticketee"
+  host: localhost
 
 production:
   <<: *default
