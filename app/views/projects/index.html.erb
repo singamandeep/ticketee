@@ -1,17 +1,39 @@
 <div class="container">
 	<div class="row" style="margin-top: 50px">
 		<div class="col card">
-			<div class="row card-header"><h2><i class="fa fa-paper-plane" aria-hidden="true"></i> Projects</h2></div>
-			<div class="card-body">
-				<div id = "projects">
-					<% @projects.each do |project| %>
-						<div class="card" style="margin-top: 10px">
-							<div class="card-header"><h3><%= link_to project.name, project, style: "text-decoration: none;" %></h3></div>
-							<div class="card-body"><p><%= project.description %></p></div>
+			<% unless user_signed_in? %>
+				<div class="row card-body bg-light text-dark">
+					<div class="text-center" style="margin: 40px;">
+						<h1 style="font-size: 80px;">Ticketee!</h1>
+						<hr />
+						<div style="font-size: 20px;"">
+							Hey! Welcome to Ticketee, It is a Project management system for issue tracking tickets.<br />
+
+							Ticketee can be used by organizations to assign projects to teams and track the project's development cycle. <br /> 
+
+							To start using Ticketee you may <%= link_to "Sign up", new_user_registration_path %> or if you are an existing user you can <%= link_to "Sign in", new_user_session_path %>. <br />
+							<hr />
+							To know more about development of Ticketee and functions provided by Ticketee, you can see <a href="https://amandeep511997.github.io/2018-04-05-ticketee/">here</a>. <br />
 						</div>
-					<% end %>
-				</div>				
-			</div>
+					</div>
+				</div>
+			<% else %>
+				<div class="row card-header"><h2><i class="fa fa-paper-plane" aria-hidden="true"></i> Projects</h2></div>
+				<div class="card-body">
+					<div id = "projects">
+						<% if @projects.count != 0 %>
+							<% @projects.each do |project| %>
+								<div class="card" style="margin-top: 10px">
+									<div class="card-header"><h3><%= link_to project.name, project, style: "text-decoration: none;" %></h3></div>
+									<div class="card-body"><p><%= project.description %></p></div>
+								</div>
+							<% end %>
+						<% else %>
+							<h4>There are no projects assigned to you by Administrator.</h4>
+						<% end %>
+					</div>				
+				</div>
+			<% end %>
 		</div>
 	</div>
 </div>

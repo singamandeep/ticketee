@@ -1,3 +1,21 @@
 <footer class="footer">
-	
+	<div class="container text-center" >
+		<hr />
+		<div class="row ">
+			<div class="col font-weight-bold"> 
+				<div>Developed in 
+					<%= link_to "http://rubyonrails.org/", style: "text-decoration: none;" do %>
+						<%= image_tag "/assets/rails-logo.png",  height: "30px", weight: "80px" %>
+					<% end %>
+					| Deployed on 
+					<%= link_to "https://www.heroku.com/", style: "text-decoration: none;" do %>
+						<%= image_tag "/assets/heroku-logo.png",  height: "60px", weight: "110px" %>
+					<% end %>
+					| Build on 
+					<%= link_to "https://travis-ci.org/", style: "text-decoration: none;" do %>
+						<%= image_tag "/assets/travis-ci-logo.png",  height: "60px", weight: "110px" %>
+					<% end %>
+				</div>
+			</div>
+		</div>
 </footer>

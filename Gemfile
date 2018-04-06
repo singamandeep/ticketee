@@ -46,6 +46,9 @@ gem "pundit"
 
 gem "carrierwave"
 
+# for cloud services - Used S3
+gem 'fog', '~> 1.29.0'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
