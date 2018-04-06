@@ -6,7 +6,9 @@ RSpec.feature "User can sign in" do
 	scenario "with valid credentials" do
 
 		visit "/"
-		click_link "Sign in"
+		within(".navbar") do
+			click_link "Sign in"
+		end
 		fill_in "Email", with: user.email
 		fill_in "Password", with: "password"
 		click_button "Sign in"
@@ -20,7 +22,9 @@ RSpec.feature "User can sign in" do
 		user.archive
 
 		visit "/"
-		click_link "Sign in"
+		within(".navbar") do
+			click_link "Sign in"
+		end
 		fill_in "Email", with: user.email
 		fill_in "Password", with: "password"
 		click_button "Sign in"

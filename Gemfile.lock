@@ -210,6 +210,7 @@ GEM
     minitest (5.10.3)
     multi_json (1.12.2)
     mysql2 (0.3.21)
+    net-ssh (4.2.0)
     nio4r (2.1.0)
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
@@ -343,6 +344,7 @@ DEPENDENCIES
   listen (~> 3.0.5)
   loofah (= 2.2.2)
   mysql2 (~> 0.3.18)
+  net-ssh
   puma (~> 3.0)
   pundit
   rails (~> 5.0.0)
