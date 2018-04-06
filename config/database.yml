@@ -5,7 +5,7 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: mysql2
+  adapter: postgresql
   pool: 5
   timeout: 5000
   encoding: utf8
@@ -14,8 +14,8 @@ default: &default
 development:
   <<: *default
   database: db/ticketee_development
-  username: "root"
-  password: "becomingbetterbypassingday"
+  username: "ticketee_user"
+  password: "ticketee"
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -23,11 +23,11 @@ development:
 test:
   <<: *default
   database: db/ticketee_test
-  username: "root"
-  password: "becomingbetterbypassingday"
+  username: "ticketee_user"
+  password: "ticketee"
 
 production:
   <<: *default
   database: ticketee_production
-  username: <%= ENV['CODESNIPPETS_DATABASE_USER'] %>
-  password: <%= ENV['CODESNIPPETS_DATABASE_PASSWORD'] %>
+  username: ENV['TICKETEE_USERNAME']
+  password: ENV['TICKETEE_PASSWORD']
