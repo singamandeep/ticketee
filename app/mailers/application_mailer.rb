@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'no-reply@ticketeeapp.herokuapp.com'
+  default from: 'app.ticketee@gmail.com'
   layout 'mailer'
 end
