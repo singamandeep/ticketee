@@ -7,5 +7,5 @@ The aim of the project is to automate a Project Management System for issue-trac
 To know more about development of Ticketee and functions provided by Ticketee, you can see [here](https://amandeep511997.github.io/2018-04-05-ticketee/). 
 
 ## References
-- A Practice application in Rails to learn BDD development in Rails - Created while reading Rails 4 in Action by Ryan Bigg
+A Practice application in Rails to learn BDD development in Rails - Created while reading Rails 4 in Action by Ryan Bigg
 
